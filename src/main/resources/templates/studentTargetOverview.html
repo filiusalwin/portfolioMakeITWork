@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Portfolio Alwin Filius</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 20%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article1 {
+  float: left;
+  padding: 20px;
+  width: 20%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+article2 {
+  float: left;
+  padding: 20px;
+  width: 20%;
+  background-color: #E6E6FA;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+article3 {
+    float: left;
+    padding: 20px;
+    width: 20%;
+    background-color: #f1f1f1;
+    height: 300px; /* only for demonstration, should be removed */
+}
+
+article4 {
+    float: left;
+    padding: 20px;
+    width: 20%;
+    background-color: #E6E6FA;
+    height: 300px; /* only for demonstration, should be removed */
+}
+article5 {
+    float: left;
+    padding: 20px;
+    width: 20%;
+    background-color: #f1f1f1;
+    height: 300px; /* only for demonstration, should be removed */
+}
+
+
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h2>Overzicht van leerdoelen voor het criterium <span th:text="${criterium.criteriumLevel}"/></h2>
+</header>
+
+<section>
+    <nav>
+        <table>
+            <tr>
+                <th> Niveau </th><th>Criteria</th>
+            </tr>
+
+            <tr th:object="${criterium}" >
+                <td th:text="${criterium.criteriumLevel}" />
+                <td th:text="${criterium.criteriumDescription}" />
+            </tr>
+        </table>
+    </nav>
+
+    <article1>
+        <table>
+            <tr>
+                <th> Leerdoel </th><th>Streefdatum</th>
+            </tr>
+            <tr th:each="target: ${allTargets}">
+                <td>  <td th:text="${target.targetDescription}" />
+                </td>
+                <td>  <td th:text="${target.targetDate}" />
+                </td>
+
+            </tr>
+        </table>
+    </article1>
+
+    <article2>
+        <h2>Voeg een streefdoel toe</h2>
+        <form action="#" th:action="@{/target/new}" th:object="${target}" method="post">
+            <p>Leerdoel: <input type="text" th:field="*{targetDescription}" /></p>
+            <p>Streefdatum <input type="date" th:field="*{targetDate}" /></p>
+            <p><input type="hidden" th:field="*{criterium}"  /></p>
+            <p><input type="submit" value="Voeg toe" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </article2>
+
+
+    <article3>
+        <h2>Voeg een review toe</h2>
+        <form action="#" th:action="@{/review/new}" th:object="${review}" method="post">
+            <p>Review beschrijving: <input type="text" th:field="*{reviewDescription}" /></p>
+            <p>Git link <input type="text" th:field="*{gitLink}" /></p>
+            <p><input type="hidden" th:field="*{criterium}"  /></p>
+            <p><input type="submit" value="Voeg toe" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </article3>
+</section>
+
+
+<footer>
+    Copyright Alwin Filius
+</footer>
+
+
+
+</body>
+</html>

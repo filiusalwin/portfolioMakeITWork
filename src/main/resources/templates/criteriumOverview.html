@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Portfolio Alwin Filius</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article1 {
+  float: left;
+  padding: 20px;
+  width: 35%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+article2 {
+  float: left;
+  padding: 20px;
+  width: 35%;
+  background-color: ##E6E6FA;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h2>Overzicht van de criteria voor de categorie <td th:text="${category.categoryName}"/></h2>
+</header>
+
+
+<section>
+    <nav>
+        <table>
+            <table>
+                <tr>
+                    <th>Leercategorie</th>
+                </tr>
+                <tr th:each="category: ${allCategory}">
+                    <td th:text="${category.categoryName}" />
+                    <td><a th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">Verwijder categorie</a></td>
+                    <td><a th:href="@{/criterium/{categoryId}(categoryId=${category.categoryId})}">Voer criteria in voor deze categorie</a></td>
+                </tr>
+            </table>
+        </table>
+    </nav>
+
+    <article1>
+        <table>
+            <tr>
+                <th> Niveau </th><th>Criteria</th>
+            </tr>
+            <tr th:each="criterium: ${allCriterium}">
+                <td> </td>
+                <td th:text="${criterium.criteriumLevel}" />
+                <td th:text="${criterium.criteriumDescription}" />
+                <td><a th:href="@{/criterium/delete/{criteriumId}(criteriumId=${criterium.criteriumId})}">Verwijder criterium</a></td>
+            </tr>
+        </table>
+    </article1>
+
+    <article2>
+        <h2>Voeg een criterium toe</h2>
+        <form action="#" th:action="@{/criterium/new}" th:object="${criterium}" method="post">
+            <p>Criteriumbeschrijving: <input type="text" th:field="*{criteriumDescription}" /></p>
+            <p>Criteriumniveau: <input type="number" th:field="*{criteriumLevel}" /></p>
+            <input type="hidden" th:field="*{category}" />
+            <p><input type="submit" value="Voeg toe" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </article2>
+
+</section>
+
+
+<footer>
+    <p>Copyright Alwin Filius</p>
+</footer>
+
+
+
+</body>
+</html>
